@@ -1,63 +1,47 @@
+tuples = [ ]
 import math
-def points_exam(list_x, list_y):
-    exams = sum(list_x) / len(list_x)
-    exercises = (sum(list_y) / len(list_y)) / 10
-    return round((exams + exercises), 2 )
-def pass_pr(list_x):
-    lister = [ ]
-    for i in list_x:
-        if i < 10:
-            pass
-        else:
-            lister.append(i)
-    return round(((len(lister) / len(list_x))*100), 1 )
-def points(list_z):
-    list_another = [ ]
-    for i in list_z:
-        if i >= 0 and i <= 14:
-            grade = 0
-        elif i >= 15 and i <= 17:
-            grade = 1
-        elif i >= 18 and i <= 20:
-            grade = 2
-        elif i >= 21 and i <= 23:
-            grade = 3
-        elif i >= 24 and i <= 27:
-            grade = 4
-        elif i >= 28 and i <= 30:
-            grade = 5
-        list_another.append(grade)
-    return list_another
-dictionary = { }
-list_x = [ ]
-list_y = [ ]
-list_z = [ ]
+
 while True:
-    n = str(input("Exam points and exercises completed: "))
-    #exam points 0 - 20 (less than 20 is fail)
-    #exercise points 0 - 100 (10% grants 1 point)
-    if n == "":
-        print ("Statistics:")
-        print (f"Points average: {points_exam(list_x, list_y)}")
-        print (f"Pass percentage: {pass_pr(list_x)}")
-        a = points(list_z).count(5)
-        b = points(list_z).count(4)
-        c = points(list_z).count(3)
-        d = points(list_z).count(2)
-        e = points(list_z).count(1)
-        f = points(list_z).count(0)
-        print ("Grade distribution:")
-        print ("5: "+a*"*")
-        print ("4: "+b*"*")
-        print ("3: "+c*"*")
-        print ("2: "+d*"*")
-        print ("1: "+e*"*")
-        print ("0: "+f*"*")
+    score = str(input("Exam points and exercises completed: "))
+    if score == "":
         break
-    else:
-        lister = n.split(" ")
-        u_1 = lister[0]
-        u_2 = lister[1]
-        list_x.append(int(u_1)) #list so vsemi examenami
-        list_y.append(int(u_2)) #list so vsemi exercisami
-        list_z.append(int(u_1)+(int(u_2)/10)) #list s ballami
+    score = score.split()
+    tuples.append(( int(score[0]) , int(score[1]) ))
+
+grades = [ ]
+points = [ ]
+for item in tuples:
+    i = item[0] + round(int(item[1]/10))
+    point = math.floor(item[0] + item[1]/10)
+
+    if item[0] < 10:
+        s = 0
+    elif 0<=i<=14:
+        s = 0
+    elif 15<=i<=17:
+        s = 1
+    elif 18<=i<=20:
+        s = 2
+    elif 21<=i<=23:
+        s = 3
+    elif 24<=i<=27:
+        s = 4
+    elif 28<=i<=30:
+        s = 5
+    grades.append(s)
+    points.append(point)
+
+average_points = sum(points) / len(points)
+
+pass_pr = round(100-((grades.count(0)/len(grades))*100), 1)
+
+print("Statistics:")
+print(f"Points average: {average_points}")
+print(f"Pass percentage: {pass_pr}")
+print("Grade distribution:")
+print(f"  5: {grades.count(5)*'*'}")
+print(f"  4: {grades.count(4)*'*'}")
+print(f"  3: {grades.count(3)*'*'}")
+print(f"  2: {grades.count(2)*'*'}")
+print(f"  1: {grades.count(1)*'*'}")
+print(f"  0: {grades.count(0)*'*'}")
